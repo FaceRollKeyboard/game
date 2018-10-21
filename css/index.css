@@ -1,4 +1,6 @@
 #main {
+    top: 7rem;
+    position: relative;
     width: 400px;
     height: 400px;
     background: white;

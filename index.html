@@ -51,11 +51,55 @@
             return div;
         }
 
+        //创建cell，其中一个为cell black
+        function creatcell(){
+            var temp = ['cell','cell','cell','cell'];
+            var i = Math.floor(math.random()*4);//找个位置用来随机生成黑块
+            temp[i]='cell black';
+            return temp;
+        }
         //创建一个<div class="row" >并且有四个子节点 <div class="cell">
         function ceaterow(){
             var con = $('con');
-            var row = creatediv('row');
-            var arr = creatcell();
+            var row = creatediv('row');//创建div classNmae=row
+            var arr = creatcell();//定义 div cell 额类名，其中一个为cell black
+            con.appendChild(row);//添加row为con的子节点
+            for(var i =0;i<4;i++){
+                row.appendChild(creatediv(arr[i]));
+            }
+
+            if(con.firstChild == null){
+                con.appendChild(row);
+            }else{
+                con.insertBefore(row,con.firstChild)
+            }
+        }
+
+        //删除div#con 的子节点中最后那个<div class = "row">
+        function delrow(){
+            var con = $('con');
+            if (con.childNodes.length == 6) {
+                con.removeChild(con.lastChild);
+            }
+        }
+
+        //动起来
+        //黑块向下移动
+        function move(){
+            var con = $('con');
+            var top = parseInt(window.getComputedStyle(con,null)['top']);
+            //getComputedStyle可获得行内式以外的CSS的属性值，比style好
+            if(speed + top >0){
+                top = 0;
+            }else {
+                top +=speed;
+            }
+            con.style.top = top + 'px';
+
+            if (top == 0){
+                creatrow();
+
+            }
         }
         </script>
     </body>
